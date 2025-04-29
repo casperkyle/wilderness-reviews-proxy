@@ -3,27 +3,13 @@ const axios = require('axios');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-
-// ✅ Secure Stamped API credentials from environment
-const PUBLIC_API_KEY = process.env.STAMPED_PUBLIC_KEY;
-const PRIVATE_API_KEY = process.env.STAMPED_PRIVATE_KEY;
+const STORE_HASH = process.env.STAMPED_STORE_HASH || '97592'; // fallback if not set
 
 app.get('/api/reviews', async (req, res) => {
   try {
-    const stampedUrl = `https://stamped.io/api/v2/reviews`;
+    const stampedUrl = `https://stamped.io/api/v2/${STORE_HASH}/dashboard/reviews`;
 
-    const response = await axios({
-      method: 'get',
-      url: stampedUrl,
-      auth: {
-        username: PUBLIC_API_KEY,
-        password: PRIVATE_API_KEY,
-      },
-      params: {
-        limit: 100,
-        sort: 'date:desc',
-      },
-    });
+    const response = await axios.get(stampedUrl);
 
     res.status(200).json(response.data);
   } catch (error) {
