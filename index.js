@@ -7,12 +7,10 @@ const PORT = process.env.PORT || 3000;
 // ✅ Secure Stamped API credentials from environment
 const PUBLIC_API_KEY = process.env.STAMPED_PUBLIC_KEY;
 const PRIVATE_API_KEY = process.env.STAMPED_PRIVATE_KEY;
-const STORE_HASH = process.env.STAMPED_STORE_HASH;
 
-// ✅ Route: /api/reviews
 app.get('/api/reviews', async (req, res) => {
   try {
-    const stampedUrl = `https://stamped.io/api/v2/${STORE_HASH}/reviews`;
+    const stampedUrl = `https://stamped.io/api/v2/reviews`;
 
     const response = await axios({
       method: 'get',
