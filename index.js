@@ -12,7 +12,7 @@ const STORE_HASH = process.env.STAMPED_STORE_HASH;
 // ✅ Route: /api/reviews
 app.get('/api/reviews', async (req, res) => {
   try {
-    const stampedUrl = `https://api.stamped.io/v2/${STORE_HASH}/reviews`;
+    const stampedUrl = `https://stamped.io/api/v2/${STORE_HASH}/reviews`;
 
     const response = await axios({
       method: 'get',
