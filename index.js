@@ -4,26 +4,15 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-const PUBLIC_API_KEY = process.env.STAMPED_PUBLIC_KEY;
-const PRIVATE_API_KEY = process.env.STAMPED_PRIVATE_KEY;
+// Your public key and store domain
+const PUBLIC_API_KEY = process.env.STAMPED_PUBLIC_KEY || 'pubkey-egr7k97yFLvwh313dE2vrTVivBmGg4';
+const STORE_URL = 'wildernessrvmattress.com';
 
 app.get('/api/reviews', async (req, res) => {
   try {
-    const stampedUrl = 'https://stamped.io/api/v2/reviews';
+    const stampedUrl = `https://stamped.io/api/widget/reviews?apiKey=${PUBLIC_API_KEY}&storeUrl=${STORE_URL}&limit=100`;
 
-    const response = await axios({
-      method: 'get',
-      url: stampedUrl,
-      auth: {
-        username: PUBLIC_API_KEY,
-        password: PRIVATE_API_KEY,
-      },
-      params: {
-        limit: 100,
-        sort: 'date:desc',
-      },
-    });
-
+    const response = await axios.get(stampedUrl);
     res.status(200).json(response.data);
   } catch (error) {
     console.error('❌ Error fetching reviews:', error.response?.data || error.message);
