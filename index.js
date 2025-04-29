@@ -3,11 +3,10 @@ const axios = require('axios');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-const STORE_HASH = process.env.STAMPED_STORE_HASH || '97592'; // fallback if not set
 
 app.get('/api/reviews', async (req, res) => {
   try {
-    const stampedUrl = `https://stamped.io/api/v2/${STORE_HASH}/dashboard/reviews`;
+    const stampedUrl = 'https://stamped.io/api/v2/97592/dashboard/reviews';
 
     const response = await axios.get(stampedUrl);
 
